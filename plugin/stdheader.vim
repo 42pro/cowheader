@@ -148,6 +148,11 @@ function! s:stdheader()
 endfunction
 
 " Bind command and shortcut
+
 command! Stdheader call s:stdheader ()
 map <F1> :Stdheader<CR>
-autocmd BufWritePre * call s:update ()
+
+augroup stdheader
+	autocmd!
+	autocmd BufWritePre * call s:update ()
+augroup END
