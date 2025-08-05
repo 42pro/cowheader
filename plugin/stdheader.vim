@@ -61,7 +61,12 @@ endfunction
 function! s:textline(left, right)
 	let l:left = strpart(a:left, 0, s:length - s:margin * 2 - strlen(a:right))
 
-	return s:start . repeat(' ', s:margin - strlen(s:start)) . l:left . repeat(' ', s:length - s:margin * 2 - strlen(l:left) - strlen(a:right)) . a:right . repeat(' ', s:margin - strlen(s:end)) . s:end
+	let l:spaces = s:length - s:margin * 2 - strlen(l:left) - strlen(a:right)
+	if l:spaces < 0
+		let l:spaces = 0
+	endif
+
+	return s:start . repeat(' ', s:margin - strlen(s:start)) . l:left . repeat(' ', l:spaces) . a:right . repeat(' ', s:margin - strlen(s:end)) . s:end
 endfunction
 
 function! s:line(n)
