@@ -156,6 +156,32 @@ function! s:stdheader()
 	endif
 endfunction
 
+function! s:fix_merge_conflict()
+	call s:filetype()
+	let l:checkline = s:start . repeat(' ', s:margin - strlen(s:start)) . "Updated: "
+
+	" fix conflict on 'Updated:' line
+	if getline(9) =~ "<<<<<<<" && getline(11) =~ "=======" && getline(13) =~ ">>>>>>>" && getline(10) =~ l:checkline
+		let l:line = 9
+		while l:line < 12
+			call setline(l:line, s:line(l:line))
+			let l:line = l:line + 1
+		endwhile
+		echo "42header conflicts automatically resolved!"
+	exe ":12,15d"
+
+	" fix conflict on both 'Created:' and 'Updated:' (unlikely, but useful in case)
+	elseif getline(8) =~ "<<<<<<<" && getline(11) =~ "=======" && getline(14) =~ ">>>>>>>" && getline(10) =~ l:checkline
+		let l:line = 8
+		while l:line < 12
+			call setline(l:line, s:line(l:line))
+			let l:line = l:line + 1
+		endwhile
+		echo "42header conflicts automatically resolved!"
+	exe ":12,16d"
+	endif
+endfunction
+
 function! s:not_rebasing()
 	if system("ls `git rev-parse --git-dir 2>/dev/null` | grep rebase | wc -l")
 		return 0
@@ -171,4 +197,5 @@ map <F1> :Stdheader<CR>
 augroup stdheader
 	autocmd!
 	autocmd BufWritePre * call s:update ()
+	autocmd BufReadPost * call s:fix_merge_conflict ()
 augroup END
