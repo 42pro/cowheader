@@ -1,4 +1,4 @@
-let s:asciiart = [
+let s:art43 = [
 			\"        :::      ::::::::",
 			\"      :+:             :+:",
 			\"    +:+ +:+          +:+ ",
@@ -6,6 +6,16 @@ let s:asciiart = [
 			\"+#+#+#+#+#+         +#+  ",
 			\"     #+#         #+#     ",
 			\"    ###   ########.fr    "
+			\]
+
+let s:artcow = [
+			\"           (    )",
+			\"            (oo) ",
+			\"   )\\.-----/(O O)",
+			\"  # ;       / u  ",
+			\"    (  .   |} )  ",
+			\"     |/ `.;|/;   ",
+			\"     \"     \" \"   "
 			\]
 
 let s:start		= '/*'
@@ -58,7 +68,8 @@ function! s:filetype()
 endfunction
 
 function! s:ascii(n)
-	return s:asciiart[a:n - 3]
+	let l:art = get(g:, 'header_art', '43') == 'cow' ? s:artcow : s:art43
+	return l:art[a:n - 3]
 endfunction
 
 function! s:textline(left, right)

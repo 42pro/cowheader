@@ -10,7 +10,19 @@
 
 ### **Fork changes**
 
-- ASCII art reads **43** instead of 42.
+- ASCII art selectable via `art`: `"43"` (default, the 42-style glyphs reading 43)
+  or `"cow"`:
+
+```lua
+{
+  "rscircus/42header",
+  main = "42header",
+  opts = { user = "yourLogin", mail = "you@example.com", art = "cow" },
+}
+```
+
+Outside lazy.nvim: `let g:header_art = 'cow'`. Unknown values raise an error.
+
 - User and mail are configurable from lazy.nvim via a `setup()` hook
   (values are written to `g:user42` / `g:mail42`, which the header
   generator reads):

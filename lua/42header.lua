@@ -1,9 +1,10 @@
 -- Configures 42header from lazy.nvim opts:
 --
---   { "rscircus/42header", main = "42header", opts = { user = "...", mail = "..." } }
+--   { "rscircus/42header", main = "42header",
+--     opts = { user = "...", mail = "...", art = "43" | "cow" } }
 --
--- Values land in g:user42 / g:mail42, which plugin/stdheader.vim reads.
--- g:user42 / g:mail42 set elsewhere still work; setup() wins when both exist.
+-- user/mail land in g:user42 / g:mail42, art in g:header_art.
+-- Globals set elsewhere still work; setup() wins when both exist.
 local M = {}
 
 function M.setup(opts)
@@ -13,6 +14,12 @@ function M.setup(opts)
 	end
 	if opts.mail ~= nil then
 		vim.g.mail42 = opts.mail
+	end
+	if opts.art ~= nil then
+		if opts.art ~= "43" and opts.art ~= "cow" then
+			error(("42header: unknown art '%s' (expected '43' or 'cow')"):format(opts.art))
+		end
+		vim.g.header_art = opts.art
 	end
 end
 
