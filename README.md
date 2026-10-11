@@ -1,90 +1,65 @@
-# **cowheader**
+# cowheader
 
-Renamed fork of [42paris/42header](https://github.com/42paris/42header).
+The classic 42 coding-school header, now with a cow. Renamed fork of
+[42paris/42header](https://github.com/42paris/42header).
 
-### **Description**
+![cowheader screenshot](img/cowheader.png)
 
-42 standard header for vim editor.
+## What it does
 
-![42 header](img/42header.jpg)
+- Inserts an 11-line header: filename, author, mail, creation and update timestamps.
+- ASCII art on the right: `43` by default, or the `cow` above.
+- Refreshes the `Updated:` line on every save.
+- Repairs merge conflicts that land inside the header when the file opens.
+- Comment tokens adapt to the filetype: C, C++, Go, Rust, Java, PHP, JS/TS, Lua, Vim, Python, Fortran, and more.
 
-### **Fork changes**
+## Install
 
-- ASCII art selectable via `art`: `"43"` (default, the 42-style glyphs reading 43)
-  or `"cow"`:
-
-```lua
-{
-  "42pro/cowheader",
-  main = "42header",
-  opts = { user = "yourLogin", mail = "you@example.com", art = "cow" },
-}
-```
-
-Outside lazy.nvim: `let g:header_art = 'cow'`. Unknown values raise an error.
-
-- User and mail are configurable from lazy.nvim via a `setup()` hook
-  (values are written to `g:user42` / `g:mail42`, which the header
-  generator reads):
+With [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
 {
   "42pro/cowheader",
   main = "42header",
-  opts = { user = "yourLogin", mail = "you@example.com" },
+  opts = { user = "yourlogin", mail = "you@example.com", art = "cow" },
 }
 ```
 
-`g:user42` / `g:mail42` set elsewhere keep working; `opts` wins when both exist.
-
-
-### **UNIX Setup**
-
-Copy `stdheader.vim` in your `~/.vim/plugin`, or use your favorite plugin
-manager. Then set the user and mail variables as explained below.
-
-#### Option 1: export USER and MAIL in your shell configuration file
-Use `echo $0` to determine if you are using bash or zsh shell.
-
-Add in `~/.zshrc` or `~/.bashrc` (create the files if they do not exist):
-
-```bash
-export USER='yourLogin'
-export MAIL='yourLogin@student.42.fr'
-```
-
-This sets the `USER` abd `MAIL` environment variables across your entire system.
-
-#### Option 2: set user and mail values directly in your vimrc
+Plain Vim or Neovim: copy `plugin/stdheader.vim` into `~/.vim/plugin/` (or
+`~/.config/nvim/plugin/`) and set the variables in your vimrc:
 
 ```vim
-let g:user42 = 'yourLogin'
-let g:mail42 = 'yourLogin@student.42.fr'
+let g:user42 = 'yourlogin'
+let g:mail42 = 'yourlogin@student.42.fr'
+let g:header_art = 'cow'   " optional: '43' (default) or 'cow'
 ```
 
-### **Usage**
+## Configuration
 
-In **NORMAL** mode you can use `:Stdheader` or simply press the shortcut <kbd>F1</kbd>.
+| lazy `opts` | vim global     | meaning                     | fallback |
+| ----------- | -------------- | --------------------------- | -------- |
+| `user`      | `g:user42`     | login shown in the header   | `$USER`  |
+| `mail`      | `g:mail42`     | mail shown in the header    | `$MAIL`  |
+| `art`       | `g:header_art` | `"43"` or `"cow"`           | `"43"`   |
 
-Under **Linux** you eventually need to disable the **help** shortcut of your **terminal** :
+`opts` wins over globals set elsewhere; unknown `art` values raise an error.
 
-For **Terminator**, right click -> Preferences -> Shortcuts -> change help with something other than <kbd>F1</kbd>
+## Usage
 
-### **Note**
+In normal mode: `:Stdheader` or `F1`. Running it on a file that already has a
+header only refreshes the filename and the `Updated:` line.
 
-Inside the **42 clusters** you can easily run:
+## Credits
 
-`$ ./set_header.sh`
+Built on [42paris/42header](https://github.com/42paris/42header) by
+[@zazard](https://github.com/zazard) and contributors:
+[@alexandregv](https://github.com/alexandregv),
+[@mjacq42](https://github.com/mjacq42),
+[@sungmcho](https://github.com/lordtomi0325),
+[@fclivaz42](https://github.com/fclivaz42),
+[@0xmthan](https://github.com/0xmthan).
 
-### **Credits**
+## License
 
-[@zazard](https://github.com/zazard) - creator  
-[@alexandregv](https://github.com/alexandregv) - contributor  
-[@mjacq42](https://github.com/mjacq42) - contributor  
-[@sungmcho](https://github.com/lordtomi0325) - contributor  
-[@fclivaz42](https://github.com/fclivaz42) - contributor  
-[@0xmthan](https://github.com/0xmthan) - contributor  
-
-### **License**
-
-This work is published under the terms of **[42 Unlicense](https://github.com/gcamerli/42unlicense)**.
+This work is published under the terms of the
+[42 Unlicense](https://github.com/gcamerli/42unlicense).
