@@ -1,6 +1,6 @@
-# **42 Header**
+# **cowheader**
 
-42 (Paris)
+Renamed fork of [42paris/42header](https://github.com/42paris/42header).
 
 ### **Description**
 
@@ -15,7 +15,7 @@
 
 ```lua
 {
-  "rscircus/42header",
+  "42pro/cowheader",
   main = "42header",
   opts = { user = "yourLogin", mail = "you@example.com", art = "cow" },
 }
@@ -29,7 +29,7 @@ Outside lazy.nvim: `let g:header_art = 'cow'`. Unknown values raise an error.
 
 ```lua
 {
-  "rscircus/42header",
+  "42pro/cowheader",
   main = "42header",
   opts = { user = "yourLogin", mail = "you@example.com" },
 }
