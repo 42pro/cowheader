@@ -8,6 +8,24 @@
 
 ![42 header](img/42header.jpg)
 
+### **Fork changes**
+
+- ASCII art reads **43** instead of 42.
+- User and mail are configurable from lazy.nvim via a `setup()` hook
+  (values are written to `g:user42` / `g:mail42`, which the header
+  generator reads):
+
+```lua
+{
+  "rscircus/42header",
+  main = "42header",
+  opts = { user = "yourLogin", mail = "you@example.com" },
+}
+```
+
+`g:user42` / `g:mail42` set elsewhere keep working; `opts` wins when both exist.
+
+
 ### **UNIX Setup**
 
 Copy `stdheader.vim` in your `~/.vim/plugin`, or use your favorite plugin
